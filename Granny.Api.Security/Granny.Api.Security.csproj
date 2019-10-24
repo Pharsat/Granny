@@ -1,13 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <UserSecretsId>49a99b89-998e-46ae-95d0-9348fc3ab83f</UserSecretsId>
+    <UserSecretsId>083e7ebb-26d6-4669-9e53-b21a12e6035f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -18,15 +17,5 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc3" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
-  </ItemGroup>
-
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties appsettings_1json__JsonSchema="" />
-    </VisualStudio>
-  </ProjectExtensions>
 
 </Project>
