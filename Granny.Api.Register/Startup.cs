@@ -30,8 +30,6 @@ namespace Granny.Api.Register
         {
             services.AddControllers();
 
-            services.AddMvc();
-
             services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "Granny Register Products API", Version = "v1" }));
         }
 
