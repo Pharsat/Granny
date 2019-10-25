@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
+    <ProjectReference Include="..\Granny.Repository.Query\Granny.Repository.Query.csproj" />
+    <ProjectReference Include="..\Granny.Util\Granny.Util.csproj" />
   </ItemGroup>
 
 </Project>
