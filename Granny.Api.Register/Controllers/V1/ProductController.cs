@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Granny.Api.Register.Model;
+using Granny.DataModel;
+using Granny.Repository.Register;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,36 +14,28 @@ namespace Granny.Api.Register.Controllers.V1
     [ApiController]
     public class ProductController : ControllerBase
     {
-        // GET: api/Product
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET: api/Product/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        private IRegisterRepository repository;
 
         // POST: api/Product
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] ProductEntryModel newProductEntry)
         {
-        }
-
-        // PUT: api/Product/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (!ModelState.IsValid) return BadRequest();
+            await repository.InsertProduct(new Product
+            {
+                Name = newProductEntry.Name,
+                PluCode = newProductEntry.PluCode
+            });
+            int priceId = await repository.InsertPrice(new Price
+            {
+                LocationId = 0, //TODO: ask for locations 
+                PluCode = newProductEntry.PluCode,
+                RegisterDate = DateTime.Now,
+                Value = newProductEntry.Price,
+                UserId = 0
+            });
+            return Ok(priceId);
         }
     }
 }

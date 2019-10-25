@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
+    <ProjectReference Include="..\Granny.Repository.Register\Granny.Repository.Register.csproj" />
   </ItemGroup>
 
   <ProjectExtensions>
