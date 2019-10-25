@@ -22,6 +22,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
     <ProjectReference Include="..\Granny.Repository.Register\Granny.Repository.Register.csproj" />
+    <ProjectReference Include="..\Granny.Util\Granny.Util.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ProjectExtensions>

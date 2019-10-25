@@ -1,5 +1,5 @@
-﻿using Granny.Api.Register.Validators;
-using Granny.DataModel;
+﻿using Granny.DataModel;
+using Granny.Util.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
