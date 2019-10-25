@@ -12,5 +12,8 @@ namespace Granny.DataModel
         public int LocationId { get; set; }
         public decimal Value { get; set; }
         public DateTime RegisterDate { get; set; }
+        public IEnumerable<Product> OtherPrices { get; set; }
+        public Product Product { get; set; }
+        public Location Location { get; set; }
     }
 }
