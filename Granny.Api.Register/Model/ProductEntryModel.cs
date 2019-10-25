@@ -12,6 +12,7 @@ namespace Granny.Api.Register.Model
     {
         [Required]
         [StringLength(14)]
+        [RegularExpression("^[0-9]*$")]
         public string PluCode { get; set; }
         [Required]
         [StringLength(200)]
