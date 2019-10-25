@@ -15,7 +15,7 @@ namespace Granny.Api.Register.Controllers.V1
     public class ProductController : ControllerBase
     {
 
-        private IRegisterRepository repository;
+        private readonly IRegisterRepository repository;
 
         // POST: api/Product
         [HttpPost]
