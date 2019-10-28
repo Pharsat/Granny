@@ -29,6 +29,15 @@ namespace Granny.Api.Security
             services.AddControllers();
 
             services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "Granny Register Products API", Version = "v1" }));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("GrannySafeOrigin",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://granny.com");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
