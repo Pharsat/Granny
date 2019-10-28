@@ -19,7 +19,8 @@ namespace Granny.Api.Register.Controllers.V1
 
         // POST: api/Product
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ProductEntryModel newProductEntry)
+        public async Task<IActionResult> Post(
+            [FromBody] ProductEntryModel newProductEntry)
         {
             if (!ModelState.IsValid) return BadRequest();
             await repository.InsertProduct(new Product
