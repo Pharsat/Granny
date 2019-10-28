@@ -18,7 +18,10 @@ namespace Granny.Api.Query.Controllers.V1
 
         // GET: api/Product/5
         [HttpGet("{pluCode}", Name = "GetBestProductPrice")]
-        public async Task<IActionResult> GetBestProductPrice([Required][StringLength(14)][RegularExpression("^[0-9]*$")] string pluCode)
+        public async Task<IActionResult> GetBestProductPrice(
+            [Required]
+            [StringLength(14)]
+            [RegularExpression("^[0-9]*$")] string pluCode)
         {
             return Ok(await repository.GetBestProductPrice(pluCode));
         }
