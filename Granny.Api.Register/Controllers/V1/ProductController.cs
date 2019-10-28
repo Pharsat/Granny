@@ -23,11 +23,13 @@ namespace Granny.Api.Register.Controllers.V1
             [FromBody] ProductEntryModel newProductEntry)
         {
             if (!ModelState.IsValid) return BadRequest();
+            //TODO: Validation of existing product should be made on DB.
             await repository.InsertProduct(new Product
             {
                 Name = newProductEntry.Name,
                 PluCode = newProductEntry.PluCode
             });
+            //TODO: Validation about existing price should be made on DB.
             int priceId = await repository.InsertPrice(new Price
             {
                 LocationId = 0, //TODO: ask for locations 
