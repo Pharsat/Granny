@@ -23,8 +23,13 @@ namespace Granny.Api.Register.Controllers.V1
         // POST: api/Product
         [HttpPost]
         public async Task<IActionResult> Post(
-            [FromBody] ProductEntryModel newProductEntry)
+            [FromBody, Required] ProductEntryModel newProductEntry)
         {
+            if (newProductEntry is null)
+            {
+                throw new ArgumentNullException(nameof(newProductEntry));
+            }
+
             if (newProductEntry != null && !ModelState.IsValid) return BadRequest();
             //TODO: Validation of existing product should be made on DB.
             await repository.InsertProduct(new Product
