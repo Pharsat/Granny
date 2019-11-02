@@ -27,16 +27,22 @@ namespace Granny.Api.Security.Controllers.V1
         [HttpPost()]
         public async Task<IActionResult> Authenticate([FromBody]AuthenticateDto model)
         {
-            var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
+            try
+            {
+                var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
+                if (payload == null) return Unauthorized();
 
-            if (payload == null) return Unauthorized();
+                var user = await _userService.Authenticate(payload.Email).ConfigureAwait(false);
 
-            var user = await _userService.Authenticate(payload.Email);
+                if (user == null)
+                    return BadRequest(new { message = "email is invalid" });
 
-            if (user == null)
-                return BadRequest(new { message = "email is invalid" });
-
-            return Ok(user);
+                return Ok(user);
+            }
+            catch(InvalidJwtException ex)
+            {
+                return Unauthorized(new { message = ex.Message});
+            }
         }
     }
 }
