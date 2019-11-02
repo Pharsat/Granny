@@ -1,5 +1,6 @@
 using System.Text;
 using Granny.Api.Security.Services;
+using Granny.Repository.Security;
 using Granny.Util.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -57,6 +58,9 @@ namespace Granny.Api.Security
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<ISecurityRepository, SecurityRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

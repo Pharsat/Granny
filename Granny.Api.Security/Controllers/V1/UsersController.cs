@@ -24,19 +24,14 @@ namespace Granny.Api.Security.Controllers.V1
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost()]
         public async Task<IActionResult> Authenticate([FromBody]AuthenticateDto model)
         {
-            if (model is null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
             var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
 
             if (payload == null) return Unauthorized();
 
-            var user = _userService.Authenticate(payload.Email);
+            var user = await _userService.Authenticate(payload.Email);
 
             if (user == null)
                 return BadRequest(new { message = "email is invalid" });

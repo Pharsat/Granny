@@ -21,7 +21,7 @@ namespace Granny.Api.Security.Services
 
         private readonly ISecurityRepository _securityRepository;
 
-        public UserService(IOptions<AppSettings> appSettings)
+        public UserService(IOptions<AppSettings> appSettings, ISecurityRepository securityRepository)
         {
             if (appSettings is null)
             {
@@ -29,6 +29,8 @@ namespace Granny.Api.Security.Services
             }
 
             _appSettings = appSettings.Value;
+
+            _securityRepository = securityRepository;
         }
         public async Task<AuthenticatedUser> Authenticate(string email)
         {
