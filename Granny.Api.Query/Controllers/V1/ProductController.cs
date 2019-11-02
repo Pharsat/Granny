@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Granny.Api.Query.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     [EnableCors("GrannySafeOrigin")]
     public class ProductController : ControllerBase

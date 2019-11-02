@@ -13,7 +13,7 @@ namespace Granny.Api.Security.Controllers.V1
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
