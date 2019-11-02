@@ -23,7 +23,7 @@ namespace Granny.Api.Register.Controllers.V1
         // POST: api/Product
         [HttpPost]
         public async Task<IActionResult> Post(
-            [FromBody, Required] ProductEntryModel newProductEntry)
+            [FromBody, Required] ProductCreateDto newProductEntry)
         {
             if (newProductEntry is null)
             {

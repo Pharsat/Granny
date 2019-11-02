@@ -1,5 +1,4 @@
-﻿using Granny.DataModel;
-using Granny.Util.Validators;
+﻿using Granny.Util.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Granny.Api.Register.Model
 {
-    public class ProductEntryModel
+    public class ProductCreateDto
     {
         [Required]
         [StringLength(14)]
