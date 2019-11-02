@@ -6,9 +6,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Granny.Api.Security.Helpers;
 using Granny.DataModel;
 using Granny.Repository.Security;
+using Granny.Util.Helpers;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 

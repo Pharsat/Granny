@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Granny.Api.Security.Helpers
+namespace Granny.Util.Helpers
 {
     public class AppSettings
     {

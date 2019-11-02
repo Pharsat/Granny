@@ -1,21 +1,14 @@
-using Granny.Api.Security.Helpers;
+using System.Text;
 using Granny.Api.Security.Services;
+using Granny.Util.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Granny.Api.Security
 {
@@ -35,14 +28,7 @@ namespace Granny.Api.Security
 
             services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "Granny Register Products API", Version = "v1" }));
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("GrannySafeOrigin",
-                    builder =>
-                    {
-                        builder.WithOrigins("http://granny.com");
-                    });
-            });
+            services.AddCors();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
