@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Granny.Api.Security
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -18,6 +18,7 @@ namespace Granny.Api.Security
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
