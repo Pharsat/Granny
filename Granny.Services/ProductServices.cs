@@ -3,7 +3,6 @@ using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
 using Granny.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace Granny.Services
 {
@@ -12,11 +11,14 @@ namespace Granny.Services
         private IProductRepository productRepository;
         private IUnitOfWork unitOfWork;
 
-        public ProductServices(IUnitOfWork unitOfWork, IProductRepository productRepository)
+        public ProductServices(
+            IUnitOfWork unitOfWork, 
+            IProductRepository productRepository, 
+            ILocationServices locationServices, 
+            IPriceServices priceServices)
         {
             this.productRepository = productRepository;
             this.unitOfWork = unitOfWork;
-
         }
 
         public void Create(Product product)
@@ -28,10 +30,9 @@ namespace Granny.Services
             this.unitOfWork.Save();
         }
 
-        public List<Product> Get()
+        public Product GetById(long productId)
         {
-            List<Product> listProducts = this.productRepository.getAll();
-            return listProducts;
+            return this.productRepository.Get(productId);
         }
 
         public void Update(Product product)

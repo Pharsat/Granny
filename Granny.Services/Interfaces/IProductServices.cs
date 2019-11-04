@@ -1,5 +1,4 @@
 ﻿using Granny.DataModel;
-using System.Collections.Generic;
 
 namespace Granny.Services.Interfaces
 {
@@ -9,6 +8,6 @@ namespace Granny.Services.Interfaces
 
         void Update(Product product);
 
-        List<Product> Get();
+        Product GetById(long productId);
     }
 }

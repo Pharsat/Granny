@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Granny.DataModel
+﻿namespace Granny.DataModel
 {
     public class Product
     {
-        public string PluCode { get; set; }
+        public long ProductId { get; set; }
         public string Name { get; set; }
     }
 }

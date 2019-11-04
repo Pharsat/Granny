@@ -24,6 +24,7 @@ namespace Granny.DAO.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
         }
     }
 }

@@ -10,5 +10,7 @@ namespace Granny.Services.Interfaces
         void Update(Location location);
 
         List<Location> Get();
+
+        Location GetByName(string location);
     }
 }

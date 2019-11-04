@@ -2,6 +2,7 @@
 using Granny.DAO.Repository;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
+using System.Linq;
 
 namespace Granny.DAO.EntitiesRepository
 {
@@ -10,6 +11,11 @@ namespace Granny.DAO.EntitiesRepository
         public LocationRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
+        }
+
+        public Location GetByLocation(string location)
+        {
+            return this.ObjectSet.Where(s => s.Name.ToLower().Equals(location.ToLower())).FirstOrDefault();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Granny.DAO.Repository;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
+using System.Linq;
 
 namespace Granny.DAO.EntitiesRepository
 {
@@ -10,6 +11,11 @@ namespace Granny.DAO.EntitiesRepository
         public PriceRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
+        }
+
+        public Price GetByProductLocation(long productId, int locationId)
+        {
+            return this.ObjectSet.Where(s => s.PluCode.Equals(productId) && s.LocationId == locationId).FirstOrDefault();
         }
     }
 }

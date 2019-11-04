@@ -35,6 +35,11 @@ namespace Granny.Services
             return listLocations;
         }
 
+        public Location GetByName(string location)
+        {
+            return this.locationRepository.GetByLocation(location);
+        }
+
         public void Update(Location location)
         {
             if (location == null)

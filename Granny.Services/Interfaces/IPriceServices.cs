@@ -1,14 +1,9 @@
-﻿using Granny.DataModel;
-using System.Collections.Generic;
+﻿using Granny.Api.Register.Model;
 
 namespace Granny.Services.Interfaces
 {
     public interface IPriceServices
     {
-        void Create(Price price);
-
-        void Update(Price price);
-
-        List<Price> Get();
+        void Register(ProductCreateDto productCreateDto);
     }
 }

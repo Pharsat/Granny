@@ -23,18 +23,30 @@ namespace Granny.Api.Register.Controllers.V1
     [EnableCors("GrannySafeOrigin")]
     public class ProductController : ControllerBase
     {
+        //private readonly IRegisterRepository repository;
         private readonly IProductRepository productRepository;
         private readonly IProductServices productServices;
+        //private readonly ILocationRepository locationRepository;
+        private readonly ILocationServices locationServices;
+        //private readonly IPriceRepository priceRepository;
+        private readonly IPriceServices priceServices;
         private readonly IUnitOfWork unitOfWork;
 
         public ProductController()
         {
             this.unitOfWork = new UnitOfWork();
             this.productRepository = new ProductRepository(this.unitOfWork);
-            this.productServices = new ProductServices(this.unitOfWork, this.productRepository);
+            this.productServices = new ProductServices(
+                this.unitOfWork, 
+                this.productRepository,
+                this.locationServices,
+                this.priceServices);
+            //this.locationRepository = new LocationRepository(this.unitOfWork);
+            //this.locationServices = new LocationServices(this.unitOfWork, this.locationRepository);
+            //this.priceRepository = new PriceRepository(this.unitOfWork);
+            //this.priceServices = new PriceServices(this.unitOfWork, this.priceRepository);
         }
 
-        private readonly IRegisterRepository repository;
 
         // POST: api/Product
         [HttpPost]
@@ -45,10 +57,10 @@ namespace Granny.Api.Register.Controllers.V1
             {
                 Product product = new Product() { 
                     Name = newProductEntry.Name,
-                    PluCode = newProductEntry.PluCode
+                    ProductId = newProductEntry.PluCode
                 };
 
-                this.productServices.Create(product);
+                this.priceServices.Register(newProductEntry);
                 return Ok();
             }
             else
@@ -74,5 +86,6 @@ namespace Granny.Api.Register.Controllers.V1
             //}).ConfigureAwait(false);
             //return Ok(priceId);
         }
+
     }
 }

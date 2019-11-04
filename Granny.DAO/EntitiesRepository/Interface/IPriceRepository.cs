@@ -5,5 +5,6 @@ namespace Granny.DAO.EntitiesRepository.Interface
 {
     public interface IPriceRepository : IRepository<Price>
     {
+        Price GetByProductLocation(long productId, int locationId);
     }
 }

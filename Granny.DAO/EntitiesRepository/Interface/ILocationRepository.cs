@@ -5,5 +5,6 @@ namespace Granny.DAO.EntitiesRepository.Interface
 {
     public interface ILocationRepository : IRepository<Location>
     {
+        Location GetByLocation(string location);
     }
 }
