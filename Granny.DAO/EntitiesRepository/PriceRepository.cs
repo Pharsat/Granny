@@ -5,9 +5,9 @@ using Granny.DataModel;
 
 namespace Granny.DAO.EntitiesRepository
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class PriceRepository : Repository<Price>, IPriceRepository
     {
-        public ProductRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public PriceRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
         }

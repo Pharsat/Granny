@@ -12,9 +12,9 @@ namespace Granny.Services
         private IProductRepository productRepository;
         private IUnitOfWork unitOfWork;
 
-        public ProductServices(IUnitOfWork unitOfWork, IProductRepository entrenamientoRepository)
+        public ProductServices(IUnitOfWork unitOfWork, IProductRepository productRepository)
         {
-            this.productRepository = entrenamientoRepository;
+            this.productRepository = productRepository;
             this.unitOfWork = unitOfWork;
 
         }
