@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Granny.DAO\Granny.DAO.csproj" />
+    <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
+  </ItemGroup>
+
+</Project>

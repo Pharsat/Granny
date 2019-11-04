@@ -17,9 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Query", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Util", "Granny.Util\Granny.Util.csproj", "{04FF47D0-A89E-49B1-9C02-FDCDAB5546A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{F92AB830-E64E-4803-A124-048DDCA98266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{F92AB830-E64E-4803-A124-048DDCA98266}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.DataTransferObject", "Granny.DataTransferObject\Granny.DataTransferObject.csproj", "{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DataTransferObject", "Granny.DataTransferObject\Granny.DataTransferObject.csproj", "{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.DAO", "Granny.DAO\Granny.DAO.csproj", "{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.Services", "Granny.Services\Granny.Services.csproj", "{2CD82BCB-8C03-4605-B67B-719233EFD1E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
