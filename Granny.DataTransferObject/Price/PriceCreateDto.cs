@@ -1,13 +1,14 @@
 ﻿using Granny.Util.Validators;
 using System.ComponentModel.DataAnnotations;
 
-namespace Granny.Api.Register.Model
+namespace Granny.DataTransferObject.Price
 {
-    public class ProductCreateDto
+    public class PriceCreateDto
     {
         [Required]
-        public long PluCode { get; set; }
-
+        [StringLength(14)]
+        [RegularExpression("^[0-9]*$")]
+        public string PluCode { get; set; }
         [Required]
         [StringLength(200)]
         public string Name { get; set; }

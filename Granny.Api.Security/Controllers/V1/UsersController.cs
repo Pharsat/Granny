@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Google.Apis.Auth;
@@ -25,8 +26,13 @@ namespace Granny.Api.Security.Controllers.V1
 
         [AllowAnonymous]
         [HttpPost()]
-        public async Task<IActionResult> Authenticate([FromBody]AuthenticateDto model)
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticateDto model)
         {
+            if (model is null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             try
             {
                 var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
@@ -39,9 +45,9 @@ namespace Granny.Api.Security.Controllers.V1
 
                 return Ok(user);
             }
-            catch(InvalidJwtException ex)
+            catch (InvalidJwtException ex)
             {
-                return Unauthorized(new { message = ex.Message});
+                return Unauthorized(new { message = ex.Message });
             }
         }
     }

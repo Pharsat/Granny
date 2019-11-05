@@ -1,4 +1,6 @@
-﻿using Granny.DAO.Context;
+﻿using System;
+using System.Threading.Tasks;
+using Granny.DAO.Context;
 using Granny.DAO.UnitOfWork.Interface;
 
 namespace Granny.DAO.UnitOfWork
@@ -9,17 +11,32 @@ namespace Granny.DAO.UnitOfWork
 
         public UnitOfWork()
         {
-            this.grannyContext = new GrannyContext();
-        }
-
-        public void Dispose()
-        {
-            this.grannyContext.Dispose();
+            grannyContext = new GrannyContext();
         }
 
         public void Save()
         {
-            this.grannyContext.SaveChanges();
+            grannyContext.SaveChanges();
         }
+
+        public async Task SaveAsync()
+        {
+            await grannyContext.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                grannyContext.Dispose();
+            }
+        }
+
     }
 }

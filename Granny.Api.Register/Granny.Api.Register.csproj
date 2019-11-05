@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Collection" Version="5.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
@@ -33,10 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Granny.DAO\Granny.DAO.csproj" />
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
     <ProjectReference Include="..\Granny.DataTransferObject\Granny.DataTransferObject.csproj" />
-    <ProjectReference Include="..\Granny.Repository.Register\Granny.Repository.Register.csproj" />
     <ProjectReference Include="..\Granny.Services\Granny.Services.csproj" />
     <ProjectReference Include="..\Granny.Util\Granny.Util.csproj" />
   </ItemGroup>

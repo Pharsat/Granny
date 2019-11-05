@@ -11,19 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Api.Query", "Granny.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Api.Security", "Granny.Api.Security\Granny.Api.Security.csproj", "{75693C13-0819-4F0D-AC4E-3C92393618DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Register", "Granny.Repository.Register\Granny.Repository.Register.csproj", "{4270A3DD-F4CA-4F8F-9273-FD75D1BAE018}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Query", "Granny.Repository.Query\Granny.Repository.Query.csproj", "{7624731D-42A7-4067-AC27-0E184E435251}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Util", "Granny.Util\Granny.Util.csproj", "{04FF47D0-A89E-49B1-9C02-FDCDAB5546A6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{F92AB830-E64E-4803-A124-048DDCA98266}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DataTransferObject", "Granny.DataTransferObject\Granny.DataTransferObject.csproj", "{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.DAO", "Granny.DAO\Granny.DAO.csproj", "{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DAO", "Granny.DAO\Granny.DAO.csproj", "{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.Services", "Granny.Services\Granny.Services.csproj", "{2CD82BCB-8C03-4605-B67B-719233EFD1E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Services", "Granny.Services\Granny.Services.csproj", "{2CD82BCB-8C03-4605-B67B-719233EFD1E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Persistance", "Granny.Persistance\Granny.Persistance.csproj", "{5EA20250-6799-4F43-B218-81DE0C03699C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{E0241322-9F14-46E8-9B31-7F1ADC6125F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,22 +45,10 @@ Global
 		{75693C13-0819-4F0D-AC4E-3C92393618DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75693C13-0819-4F0D-AC4E-3C92393618DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75693C13-0819-4F0D-AC4E-3C92393618DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4270A3DD-F4CA-4F8F-9273-FD75D1BAE018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4270A3DD-F4CA-4F8F-9273-FD75D1BAE018}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4270A3DD-F4CA-4F8F-9273-FD75D1BAE018}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4270A3DD-F4CA-4F8F-9273-FD75D1BAE018}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7624731D-42A7-4067-AC27-0E184E435251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7624731D-42A7-4067-AC27-0E184E435251}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7624731D-42A7-4067-AC27-0E184E435251}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7624731D-42A7-4067-AC27-0E184E435251}.Release|Any CPU.Build.0 = Release|Any CPU
 		{04FF47D0-A89E-49B1-9C02-FDCDAB5546A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04FF47D0-A89E-49B1-9C02-FDCDAB5546A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04FF47D0-A89E-49B1-9C02-FDCDAB5546A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04FF47D0-A89E-49B1-9C02-FDCDAB5546A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F92AB830-E64E-4803-A124-048DDCA98266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F92AB830-E64E-4803-A124-048DDCA98266}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F92AB830-E64E-4803-A124-048DDCA98266}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F92AB830-E64E-4803-A124-048DDCA98266}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +61,14 @@ Global
 		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EA20250-6799-4F43-B218-81DE0C03699C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA20250-6799-4F43-B218-81DE0C03699C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA20250-6799-4F43-B218-81DE0C03699C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA20250-6799-4F43-B218-81DE0C03699C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

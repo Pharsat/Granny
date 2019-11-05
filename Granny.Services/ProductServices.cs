@@ -1,47 +1,42 @@
-﻿using Granny.DAO.EntitiesRepository.Interface;
+﻿using AutoMapper;
+using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
+using Granny.DataTransferObject.Product;
 using Granny.Services.Interfaces;
 using System;
+using System.Threading.Tasks;
 
 namespace Granny.Services
 {
     public class ProductServices : IProductServices
     {
-        private IProductRepository productRepository;
-        private IUnitOfWork unitOfWork;
+        private IProductRepository _productRepository;
+        private IUnitOfWork _unitOfWork;
+        private IMapper _mapper;
 
         public ProductServices(
             IUnitOfWork unitOfWork, 
-            IProductRepository productRepository, 
-            ILocationServices locationServices, 
-            IPriceServices priceServices)
+            IProductRepository productRepository,
+            IMapper mapper)
         {
-            this.productRepository = productRepository;
-            this.unitOfWork = unitOfWork;
+            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public void Create(Product product)
+        public async Task Create(ProductDto productDto)
         {
-            if (product == null)
-                throw new ArgumentNullException();
-
-            this.productRepository.Add(product);
-            this.unitOfWork.Save();
+            Product product = _mapper.Map<Product>(productDto);
+            await _productRepository.Create(product);
+            await _unitOfWork.SaveAsync();
         }
 
-        public Product GetById(long productId)
+        public ProductDto GetById(string pluCode)
         {
-            return this.productRepository.Get(productId);
-        }
-
-        public void Update(Product product)
-        {
-            if (product == null)
-                throw new ArgumentNullException();
-
-            this.productRepository.Update(product);
-            this.unitOfWork.Save();
+            long productId = _mapper.Map<long>(pluCode);
+            Product result = _productRepository.Get(productId);
+            return _mapper.Map<ProductDto>(result);
         }
     }
 }

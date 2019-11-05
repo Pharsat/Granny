@@ -1,5 +1,6 @@
 ﻿using Granny.DAO.Context;
 using System;
+using System.Threading.Tasks;
 
 namespace Granny.DAO.UnitOfWork.Interface
 {
@@ -8,5 +9,7 @@ namespace Granny.DAO.UnitOfWork.Interface
         GrannyContext grannyContext { get; }
 
         void Save();
+
+        Task SaveAsync();
     }
 }

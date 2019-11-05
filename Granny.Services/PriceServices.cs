@@ -1,111 +1,75 @@
-﻿using Granny.Api.Register.Model;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
+using Granny.DataTransferObject.Location;
+using Granny.DataTransferObject.Price;
+using Granny.DataTransferObject.Product;
 using Granny.Services.Interfaces;
-using System;
 
 namespace Granny.Services
 {
     public class PriceServices : IPriceServices
     {
-        private ILocationServices locationServices;
-        private IProductServices productServices;
-        private IPriceRepository priceRepository;
-        private IUnitOfWork unitOfWork;
+        private IUnitOfWork _unitOfWork;
+        private ILocationServices _locationServices;
+        private IProductServices _productServices;
+        private IPriceRepository _priceRepository;
+        private IMapper _mapper;
 
         public PriceServices(
-            IUnitOfWork unitOfWork, 
+            IUnitOfWork unitOfWork,
             IPriceRepository priceRepository,
             ILocationServices locationServices,
-            IProductServices productServices)
+            IProductServices productServices,
+            IMapper mapper)
         {
-            this.priceRepository = priceRepository;
-            this.locationServices = locationServices;
-            this.productServices = productServices;
-            this.unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _priceRepository = priceRepository;
+            _locationServices = locationServices;
+            _productServices = productServices;
+            _mapper = mapper;
         }
 
-        public void Register(ProductCreateDto productCreateDto)
+        public async Task<PriceDto> Create(PriceCreateDto priceDto)
         {
-            Location location = this.ValidateLocation(productCreateDto);
-            Product product = this.ValidateProduct(productCreateDto);
-            Price price = this.ValidatePrice(product.ProductId, location.LocationId, productCreateDto.Price);
+            Location location = await _locationServices.GetByName(priceDto.Name).ConfigureAwait(false);
+            if (location == null) location.LocationId = await _locationServices.Create(_mapper.Map<LocationDto>(location));
 
-            if (price.PriceId == 0)
-            {
-                this.Create(price);
-            }
-            else
-            {
-                this.Update(price);
-            }
+            ProductDto product =  _productServices.GetById(priceDto.PluCode);
+            if (product == null) await _productServices.Create(product);
 
-            this.unitOfWork.Save();
+            long productId = _mapper.Map<long>(product.PluCode);
+            if (!await _priceRepository.CheckIfExists(productId, priceDto.Price, location.LocationId))
+            {
+                Price price = new Price();//_mapper.Map<Price>(priceDto).Map(product).Map(location);
+                await _priceRepository.Create(price);
+                await _unitOfWork.SaveAsync();
+                return _mapper.Map<PriceDto>(price);
+            }
+            return null;
         }
 
-        private Price ValidatePrice(long productId, int locationId, decimal value)
+        public async Task<PriceDto> GetBestProductPrice(string pluCode)
         {
-            Price price = this.priceRepository.GetByProductLocation(productId, locationId);
-
-            if (price.PriceId == 0)
-            {
-                price.LocationId = locationId;
-                price.PluCode = productId;
-                price.RegisterDate = DateTime.Now;
-                price.UserId = 111;
-                price.Value = value;
-            }
-            else
-            {
-                price.RegisterDate = DateTime.Now;
-                price.UserId = 111;
-                price.Value = value;
-            }
-
-            return price;
+            long productId = _mapper.Map<long>(pluCode);
+            Price price = await _priceRepository.GetBestProductPrice(productId);
+            return _mapper.Map<PriceDto>(price);
         }
 
-        private Location ValidateLocation(ProductCreateDto productCreateDto)
+        public async Task<IEnumerable<PriceDto>> GetNextProductPrices(string pluCode, decimal value)
         {
-            Location location = this.locationServices.GetByName(productCreateDto.Location);
-
-            if (location.Name == null)
-            {
-                location.Name = productCreateDto.Location;
-                this.locationServices.Create(location);
-            }
-
-            return location;
+            long productId = _mapper.Map<long>(pluCode);
+            IEnumerable<Price> priceList = await _priceRepository.GetNextProductPrices(productId, value);
+            return _mapper.Map<IEnumerable<PriceDto>>(priceList);
         }
 
-        private Product ValidateProduct(ProductCreateDto productCreateDto)
+        public async Task<IEnumerable<PriceDto>> GetPricesByLocation(string locationDescription)
         {
-            Product product = this.productServices.GetById(productCreateDto.PluCode);
-
-            if (product.Name == null)
-            {
-                product.Name = productCreateDto.Location;
-                product.ProductId = productCreateDto.PluCode;
-                this.productServices.Create(product);
-            }
-
-            return product;
-        }
-
-        private void Create(Price price)
-        {
-            if (price == null)
-                throw new ArgumentNullException();
-
-            this.priceRepository.Add(price);
-        }
-        private void Update(Price price)
-        {
-            if (price == null)
-                throw new ArgumentNullException();
-
-            this.priceRepository.Update(price);
+            IEnumerable<Price> priceList = await _priceRepository.GetPricesByLocation(locationDescription).ConfigureAwait(false);
+            return _mapper.Map<IEnumerable<PriceDto>>(priceList);
         }
     }
 }

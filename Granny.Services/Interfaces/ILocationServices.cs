@@ -1,16 +1,13 @@
-﻿using Granny.DataModel;
-using System.Collections.Generic;
+﻿using System.Threading.Tasks;
+using Granny.DataModel;
+using Granny.DataTransferObject.Location;
 
 namespace Granny.Services.Interfaces
 {
     public interface ILocationServices
     {
-        void Create(Location location);
+        Task<int> Create(LocationDto location);
 
-        void Update(Location location);
-
-        List<Location> Get();
-
-        Location GetByName(string location);
+        Task<Location> GetByName(string location);
     }
 }

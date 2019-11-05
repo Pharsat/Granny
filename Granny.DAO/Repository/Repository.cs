@@ -4,6 +4,7 @@ using Granny.DAO.UnitOfWork.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Granny.DAO.Repository
 {
@@ -13,41 +14,45 @@ namespace Granny.DAO.Repository
 
         protected DbSet<T> ObjectSet { get; private set; }
 
-
         public Repository(IUnitOfWork unitOfWork)
         {
-            this.grannyContext = unitOfWork.grannyContext;
-            this.ObjectSet = this.grannyContext.Set<T>();
+            grannyContext = unitOfWork.grannyContext;
+            ObjectSet = grannyContext.Set<T>();
         }
 
         public void Add(T entity)
         {
-            this.grannyContext.Set<T>().Add(entity);
+            grannyContext.Set<T>().Add(entity);
         }
 
         public void Add(List<T> entities)
         {
-            this.grannyContext.Set<T>().AddRange(entities);
+            grannyContext.Set<T>().AddRange(entities);
         }
 
         public void Delete(T entity)
         {
-            this.grannyContext.Set<T>().Remove(entity);
+            grannyContext.Set<T>().Remove(entity);
         }
 
         public T Get(long id)
         {
-            return this.grannyContext.Set<T>().Find(id);
+            return grannyContext.Set<T>().Find(id);
         }
 
         public List<T> getAll()
         {
-            return this.grannyContext.Set<T>().ToList<T>();
+            return grannyContext.Set<T>().ToList<T>();
         }
 
         public void Update(T entity)
         {
-            this.grannyContext.Entry(entity).State = EntityState.Modified;
+            grannyContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public async Task AddAsync(T entity)
+        {
+            await grannyContext.AddAsync(entity);
         }
     }
 }

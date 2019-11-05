@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Granny.Api.Query
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

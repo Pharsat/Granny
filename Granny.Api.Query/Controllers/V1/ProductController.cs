@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.Globalization;
 using System.Threading.Tasks;
-using Granny.Repository.Query;
+using Granny.Services.Interfaces;
 using Granny.Util.Validators;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Granny.Api.Query.Controllers.V1
@@ -16,14 +14,19 @@ namespace Granny.Api.Query.Controllers.V1
     [EnableCors("GrannySafeOrigin")]
     public class ProductController : ControllerBase
     {
-        private readonly IQueryRepository repository;
+        private readonly IPriceServices _priceServices;
+
+        public ProductController(IPriceServices priceServices)
+        {
+            _priceServices = priceServices;
+        }
 
         // GET: api/Product/5
         [HttpGet("{pluCode}", Name = "GetBestProductPrice")]
         public async Task<IActionResult> GetBestProductPrice(
             [Required, StringLength(14), RegularExpression("^[0-9]*$")] string pluCode)
         {
-            return Ok(await repository.GetBestProductPrice(pluCode).ConfigureAwait(false));
+            return Ok(await _priceServices.GetBestProductPrice(pluCode).ConfigureAwait(false));
         }
 
         // GET: api/Product/5/2000
@@ -33,7 +36,7 @@ namespace Granny.Api.Query.Controllers.V1
             [Required, MinValue(typeof(decimal), "0")] decimal price)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return Ok(await repository.GetNextProductPrices(pluCode, price).ConfigureAwait(false));
+            return Ok(await _priceServices.GetNextProductPrices(pluCode, price).ConfigureAwait(false));
         }
 
         // GET: api/Product/Exito las vegas
@@ -42,7 +45,7 @@ namespace Granny.Api.Query.Controllers.V1
             [Required] string location)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return Ok(await repository.GetPricesByLocation(location).ConfigureAwait(false));
+            return Ok(await _priceServices.GetPricesByLocation(location).ConfigureAwait(false));
         }
     }
 }

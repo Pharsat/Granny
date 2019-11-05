@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Granny.DAO\Granny.DAO.csproj" />
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
     <ProjectReference Include="..\Granny.DataTransferObject\Granny.DataTransferObject.csproj" />
