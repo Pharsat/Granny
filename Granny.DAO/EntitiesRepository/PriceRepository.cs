@@ -13,6 +13,11 @@ namespace Granny.DAO.EntitiesRepository
 
         }
 
+        public Price GetByProduct(long productId)
+        {
+            return this.ObjectSet.Where(s => s.PluCode.Equals(productId)).FirstOrDefault();
+        }
+
         public Price GetByProductLocation(long productId, int locationId)
         {
             return this.ObjectSet.Where(s => s.PluCode.Equals(productId) && s.LocationId == locationId).FirstOrDefault();

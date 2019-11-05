@@ -50,17 +50,23 @@ namespace Granny.Api.Register.Controllers.V1
 
         // POST: api/Product
         [HttpPost]
-        public async Task<IActionResult> Post(
-            [FromBody, Required] ProductCreateDto newProductEntry)
+        //public Task<IActionResult> Post(
+        public IActionResult Post(
+            [FromBody, Required] ProductCreateDto productCreateDto)
         {
             if (ModelState.IsValid)
             {
-                Product product = new Product() { 
-                    Name = newProductEntry.Name,
-                    ProductId = newProductEntry.PluCode
-                };
+                //Product product = new Product() { 
+                //    Name = productCreateDto.Name,
+                //    ProductId = productCreateDto.PluCode
+                //};
 
-                this.priceServices.Register(newProductEntry);
+                //this.priceServices.Register(productCreateDto);
+
+                Location location = this.ValidateLocation(productCreateDto);
+                Product product = this.ValidateProduct(productCreateDto);
+                Price price = this.ValidatePrice(product.ProductId, location.LocationId, productCreateDto.Price);
+                               
                 return Ok();
             }
             else
@@ -85,6 +91,57 @@ namespace Granny.Api.Register.Controllers.V1
             //    UserId = 0
             //}).ConfigureAwait(false);
             //return Ok(priceId);
+        }
+
+        private Price ValidatePrice(long productId, int locationId, decimal value)
+        {
+            Price price = this.priceServices.GetByProductLocation(productId, locationId);
+
+            if (price.PriceId == 0)
+            {
+                price.LocationId = locationId;
+                price.PluCode = productId;
+                price.RegisterDate = DateTime.Now;
+                price.UserId = 111;
+                price.Value = value;
+                this.priceServices.Create(price);
+            }
+            else
+            {
+                price.RegisterDate = DateTime.Now;
+                price.UserId = 111;
+                price.Value = value;
+                this.priceServices.Update(price);
+            }
+
+            return price;
+        }
+
+        private Location ValidateLocation(ProductCreateDto productCreateDto)
+        {
+            Location location = this.locationServices.GetByName(productCreateDto.Location);
+
+            if (location.Name == null)
+            {
+                location.Name = productCreateDto.Location;
+                this.locationServices.Create(location);
+            }
+
+            return location;
+        }
+
+        private Product ValidateProduct(ProductCreateDto productCreateDto)
+        {
+            Product product = this.productServices.GetById(productCreateDto.PluCode);
+
+            if (product.Name == null)
+            {
+                product.Name = productCreateDto.Location;
+                product.ProductId = productCreateDto.PluCode;
+                this.productServices.Create(product);
+            }
+
+            return product;
         }
 
     }
