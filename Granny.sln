@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Persistance", "Grann
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{E0241322-9F14-46E8-9B31-7F1ADC6125F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.Test", "Granny.Test\Granny.Test.csproj", "{04CC3641-2FDC-4E82-8589-E7A525E26B9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04CC3641-2FDC-4E82-8589-E7A525E26B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04CC3641-2FDC-4E82-8589-E7A525E26B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04CC3641-2FDC-4E82-8589-E7A525E26B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04CC3641-2FDC-4E82-8589-E7A525E26B9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
