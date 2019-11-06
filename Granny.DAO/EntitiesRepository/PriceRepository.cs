@@ -21,7 +21,7 @@ namespace Granny.DAO.EntitiesRepository
 
         public async Task<bool> CheckIfExists(long productId, decimal value, int locationId)
         {
-            return await ObjectSet.AnyAsync(p => p.ProductId == productId && p.Value == value && p.LocationId == locationId);
+            return await ObjectSet.AnyAsync(p => p.ProductId == productId && p.LocationId == locationId);
         }
 
         public async Task Create(Price price)
@@ -46,10 +46,9 @@ namespace Granny.DAO.EntitiesRepository
         public async Task<IEnumerable<Price>> GetPricesByLocation(string locationDescription)
         {
             return await (from price in ObjectSet
-                          join location in _locationSet on price.LocationId equals location.LocationId
-                          where location.Name.Equals(locationDescription)
+                          where price.Location.Name.Equals(locationDescription)
                           orderby price.Value descending
                           select price).ToListAsync();
         }
-    }
+}
 }
