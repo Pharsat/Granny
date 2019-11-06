@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Granny.DAO\Granny.DAO.csproj" />
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
+    <ProjectReference Include="..\Granny.DataTransferObject\Granny.DataTransferObject.csproj" />
   </ItemGroup>
 
 </Project>

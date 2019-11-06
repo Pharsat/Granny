@@ -36,12 +36,17 @@ namespace Granny.Services
         public async Task<PriceDto> Create(PriceCreateDto priceDto)
         {
             Location location = await _locationServices.GetByName(priceDto.Name).ConfigureAwait(false);
-            if (location == null) location.LocationId = await _locationServices.Create(_mapper.Map<LocationDto>(location));
+
+            if (location == null) 
+                location.LocationId = await _locationServices.Create(_mapper.Map<LocationDto>(location));
 
             ProductDto product =  _productServices.GetById(priceDto.PluCode);
-            if (product == null) await _productServices.Create(product);
+
+            if (product == null) 
+                await _productServices.Create(product);
 
             long productId = _mapper.Map<long>(product.PluCode);
+
             if (!await _priceRepository.CheckIfExists(productId, priceDto.Price, location.LocationId))
             {
                 Price price = new Price();//_mapper.Map<Price>(priceDto).Map(product).Map(location);

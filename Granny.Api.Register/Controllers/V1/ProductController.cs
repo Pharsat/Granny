@@ -28,8 +28,11 @@ namespace Granny.Api.Register.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PriceCreateDto newProductEntry)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) 
+                return BadRequest();
+            
             await _priceServices.Create(newProductEntry).ConfigureAwait(false);
+
             return Ok();
         }
     }

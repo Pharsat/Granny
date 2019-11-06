@@ -6,6 +6,5 @@ namespace Granny.DAO.EntitiesRepository.Interface
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Task Create(Product location);
     }
 }

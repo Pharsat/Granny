@@ -28,7 +28,7 @@ namespace Granny.Services
         public async Task Create(ProductDto productDto)
         {
             Product product = _mapper.Map<Product>(productDto);
-            await _productRepository.Create(product);
+            await _productRepository.AddAsync(product);
             await _unitOfWork.SaveAsync();
         }
 

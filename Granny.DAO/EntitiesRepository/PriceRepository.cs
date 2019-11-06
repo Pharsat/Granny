@@ -11,12 +11,8 @@ namespace Granny.DAO.EntitiesRepository
 {
     public class PriceRepository : Repository<Price>, IPriceRepository
     {
-
-        private readonly DbSet<Location> _locationSet;
-
         public PriceRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _locationSet = unitOfWork.grannyContext.Set<Location>();
         }
 
         public async Task<bool> CheckIfExists(long productId, decimal value, int locationId)
