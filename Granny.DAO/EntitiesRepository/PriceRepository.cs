@@ -27,7 +27,7 @@ namespace Granny.DAO.EntitiesRepository
 
         public async Task<Price> GetBestProductPrice(long productId)
         {
-            return await ObjectSet.Where(s => s.ProductId.Equals(productId)).OrderByDescending(p => p.Value).FirstOrDefaultAsync();
+            return await ObjectSet.Where(s => s.ProductId.Equals(productId)).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Price>> GetNextProductPrices(long productId, decimal value)
@@ -35,7 +35,7 @@ namespace Granny.DAO.EntitiesRepository
             return await (from price in ObjectSet
                           where price.ProductId.Equals(productId)
                           && price.Value > value
-                          orderby price.Value descending
+                          orderby price.Value 
                           select price).ToListAsync();
         }
 
@@ -43,7 +43,7 @@ namespace Granny.DAO.EntitiesRepository
         {
             return await (from price in ObjectSet
                           where price.Location.Name.Equals(locationDescription)
-                          orderby price.Value descending
+                          orderby price.Value 
                           select price).ToListAsync();
         }
 }
