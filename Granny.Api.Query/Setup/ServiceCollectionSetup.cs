@@ -1,13 +1,11 @@
-﻿using System;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.EquivalencyExpression;
+using Granny.Api.Query.ConfigurationMapper;
 using Granny.DAO.EntitiesRepository;
 using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.Services;
-using Granny.Services.Configuration;
 using Granny.Services.Interfaces;
 using Granny.Util.Helpers;
 using Microsoft.AspNetCore.Authentication;
@@ -15,6 +13,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
 namespace Granny.Api.Query.Setup
 {

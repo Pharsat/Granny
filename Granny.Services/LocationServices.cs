@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
-using Granny.DAO.EntitiesRepository.Interface;
+﻿using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
-using Granny.DataTransferObject.Location;
 using Granny.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace Granny.Services
 {
@@ -12,21 +10,17 @@ namespace Granny.Services
     {
         private ILocationRepository _locationRepository;
         private IUnitOfWork _unitOfWork;
-        private IMapper _mapper;
 
         public LocationServices(
             IUnitOfWork unitOfWork,
-            ILocationRepository locationRepository, 
-            IMapper mapper)
+            ILocationRepository locationRepository)
         {
             _unitOfWork = unitOfWork;
             _locationRepository = locationRepository;
-            _mapper = mapper;
         }
 
-        public async Task<int> Create(LocationDto locationDto)
+        public async Task<int> Create(Location location)
         {
-            Location location = _mapper.Map<Location>(locationDto);
             await _locationRepository.AddAsync(location);
             await _unitOfWork.SaveAsync();
             return location.LocationId;

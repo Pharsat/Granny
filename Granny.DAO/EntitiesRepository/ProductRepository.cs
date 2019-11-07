@@ -11,10 +11,5 @@ namespace Granny.DAO.EntitiesRepository
         public ProductRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
-
-        public async Task Create(Product product)
-        {
-            await ObjectSet.AddAsync(product);
-        }
     }
 }

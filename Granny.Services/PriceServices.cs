@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using Granny.DAO.EntitiesRepository.Interface;
+﻿using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
-using Granny.DataTransferObject.Location;
-using Granny.DataTransferObject.Price;
-using Granny.DataTransferObject.Product;
 using Granny.Services.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Granny.Services
 {
@@ -17,64 +13,48 @@ namespace Granny.Services
         private ILocationServices _locationServices;
         private IProductServices _productServices;
         private IPriceRepository _priceRepository;
-        private IMapper _mapper;
 
         public PriceServices(
             IUnitOfWork unitOfWork,
             IPriceRepository priceRepository,
             ILocationServices locationServices,
-            IProductServices productServices,
-            IMapper mapper)
+            IProductServices productServices)
         {
-            _unitOfWork = unitOfWork;
-            _priceRepository = priceRepository;
-            _locationServices = locationServices;
-            _productServices = productServices;
-            _mapper = mapper;
+            this._unitOfWork = unitOfWork;
+            this._priceRepository = priceRepository;
+            this._locationServices = locationServices;
+            this._productServices = productServices;
         }
 
-        public async Task<PriceDto> Create(PriceCreateDto priceDto)
+        public async Task<int> Create(Price price)
         {
-            Location location = await _locationServices.GetByName(priceDto.Name).ConfigureAwait(false);
-
-            if (location == null) 
-                location.LocationId = await _locationServices.Create(_mapper.Map<LocationDto>(location));
-
-            ProductDto product =  _productServices.GetById(priceDto.PluCode);
-
-            if (product == null) 
-                await _productServices.Create(product);
-
-            long productId = _mapper.Map<long>(product.PluCode);
-
-            if (!await _priceRepository.CheckIfExists(productId, priceDto.Price, location.LocationId))
-            {
-                Price price = new Price();//_mapper.Map<Price>(priceDto).Map(product).Map(location);
-                await _priceRepository.Create(price);
-                await _unitOfWork.SaveAsync();
-                return _mapper.Map<PriceDto>(price);
-            }
-            return null;
+            await _priceRepository.AddAsync(price);
+            await _unitOfWork.SaveAsync();
+            return price.PriceId;
         }
 
-        public async Task<PriceDto> GetBestProductPrice(string pluCode)
+        public async Task<Price> GetBestProductPrice(long pluCode)
         {
-            long productId = _mapper.Map<long>(pluCode);
-            Price price = await _priceRepository.GetBestProductPrice(productId);
-            return _mapper.Map<PriceDto>(price);
+            Price price = await _priceRepository.GetBestProductPrice(pluCode);
+            return price;
         }
 
-        public async Task<IEnumerable<PriceDto>> GetNextProductPrices(string pluCode, decimal value)
+        public async Task<IEnumerable<Price>> GetNextProductPrices(long pluCode, decimal value)
         {
-            long productId = _mapper.Map<long>(pluCode);
-            IEnumerable<Price> priceList = await _priceRepository.GetNextProductPrices(productId, value);
-            return _mapper.Map<IEnumerable<PriceDto>>(priceList);
+            IEnumerable<Price> priceList = await _priceRepository.GetNextProductPrices(pluCode, value);
+            return priceList;
         }
 
-        public async Task<IEnumerable<PriceDto>> GetPricesByLocation(string locationDescription)
+        public async Task<IEnumerable<Price>> GetPricesByLocation(string locationDescription)
         {
             IEnumerable<Price> priceList = await _priceRepository.GetPricesByLocation(locationDescription).ConfigureAwait(false);
-            return _mapper.Map<IEnumerable<PriceDto>>(priceList);
+            return priceList;
+        }
+
+        public async Task<int?> CheckIfExists(long productId, int locationId)
+        {
+            Price price = await _priceRepository.CheckIfExists(productId, locationId);
+            return price?.PriceId;
         }
     }
 }

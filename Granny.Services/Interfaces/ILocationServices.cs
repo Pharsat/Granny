@@ -6,7 +6,7 @@ namespace Granny.Services.Interfaces
 {
     public interface ILocationServices
     {
-        Task<int> Create(LocationDto location);
+        Task<int> Create(Location location);
 
         Task<Location> GetByName(string location);
     }

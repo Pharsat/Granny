@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using Granny.DataModel;
-using Granny.DataTransferObject.Product;
+﻿using Granny.DataModel;
+using System.Threading.Tasks;
 
 namespace Granny.Services.Interfaces
 {
     public interface IProductServices
     {
-        Task Create(ProductDto productDto);
-        ProductDto GetById(string pluCode);
+        Task Create(Product productDto);
+
+        Product GetById(long pluCode);
     }
 }

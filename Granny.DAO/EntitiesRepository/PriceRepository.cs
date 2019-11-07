@@ -15,15 +15,15 @@ namespace Granny.DAO.EntitiesRepository
         {
         }
 
-        public async Task<bool> CheckIfExists(long productId, decimal value, int locationId)
+        public async Task<Price> CheckIfExists(long productId, int locationId)
         {
-            return await ObjectSet.AnyAsync(p => p.ProductId == productId && p.LocationId == locationId);
+            return await ObjectSet.Where(p => p.ProductId == productId && p.LocationId == locationId).FirstOrDefaultAsync();
         }
 
-        public async Task Create(Price price)
-        {
-            await ObjectSet.AddAsync(price);
-        }
+        //public async Task Create(Price price)
+        //{
+        //    await ObjectSet.AddAsync(price);
+        //}
 
         public async Task<Price> GetBestProductPrice(long productId)
         {

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AutoMapper;
+//using AutoMapper;
 
 namespace Granny.Services.Configuration
 {
-    public class MappingProfile : Profile
-    {
-        public MappingProfile()
-        {
-        }
-    }
+    //public class MappingProfile //: Profile
+    //{
+    //    public MappingProfile()
+    //    {
+    //    }
+    //}
 }

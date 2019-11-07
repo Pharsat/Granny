@@ -52,7 +52,7 @@ namespace Granny.DAO.Repository
 
         public async Task AddAsync(T entity)
         {
-            await grannyContext.AddAsync(entity);
+            await grannyContext.Set<T>().AddAsync(entity);
         }
     }
 }

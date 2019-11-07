@@ -1,10 +1,7 @@
-﻿using AutoMapper;
-using Granny.DAO.EntitiesRepository.Interface;
+﻿using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork.Interface;
 using Granny.DataModel;
-using Granny.DataTransferObject.Product;
 using Granny.Services.Interfaces;
-using System;
 using System.Threading.Tasks;
 
 namespace Granny.Services
@@ -13,30 +10,24 @@ namespace Granny.Services
     {
         private IProductRepository _productRepository;
         private IUnitOfWork _unitOfWork;
-        private IMapper _mapper;
 
         public ProductServices(
             IUnitOfWork unitOfWork, 
-            IProductRepository productRepository,
-            IMapper mapper)
+            IProductRepository productRepository)
         {
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
-        public async Task Create(ProductDto productDto)
+        public async Task Create(Product product)
         {
-            Product product = _mapper.Map<Product>(productDto);
             await _productRepository.AddAsync(product);
             await _unitOfWork.SaveAsync();
         }
 
-        public ProductDto GetById(string pluCode)
+        public Product GetById(long pluCode)
         {
-            long productId = _mapper.Map<long>(pluCode);
-            Product result = _productRepository.Get(productId);
-            return _mapper.Map<ProductDto>(result);
+           return _productRepository.Get(pluCode);
         }
     }
 }
