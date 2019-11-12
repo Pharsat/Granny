@@ -2,8 +2,9 @@
 using AutoMapper;
 using Granny.DataModel;
 using Granny.DataTransferObject.Price;
+using Granny.DataTransferObject.User;
 
-namespace Granny.Api.Register.ConfigurationMapper
+namespace Granny.Api.Security.Configuration
 {
     public class MappingProfile : Profile
     {
@@ -16,6 +17,10 @@ namespace Granny.Api.Register.ConfigurationMapper
             CreateMap<PriceCreateDto, Price>()
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.RegisterDate, opt => opt.MapFrom(src => DateTime.Now));
+
+            CreateMap<UserCreateDto, User>();
+
+            CreateMap<User, UserOutputDto>();
         }
     }
 }

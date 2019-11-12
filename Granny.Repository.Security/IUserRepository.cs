@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Granny.Repository.Security
 {
-    public interface ISecurityRepository
+    public interface IUserRepository
     {
         Task<User> GetUser(string email);
-        Task<int> CreateUser(User user);
+        Task<string> CreateUser(User user);
     }
 }

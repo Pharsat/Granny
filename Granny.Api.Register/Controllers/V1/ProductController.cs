@@ -31,6 +31,11 @@ namespace Granny.Api.Register.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PriceCreateDto priceDto)
         {
+            if (priceDto is null)
+            {
+                throw new ArgumentNullException(nameof(priceDto));
+            }
+
             if (!ModelState.IsValid)
                 return BadRequest();
 

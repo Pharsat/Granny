@@ -5,9 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Granny.DAO\Granny.DAO.csproj" />
+    <ProjectReference Include="..\Granny.DAO\Granny.DataAccessObject.Sql.csproj" />
     <ProjectReference Include="..\Granny.DataModel\Granny.DataModel.csproj" />
     <ProjectReference Include="..\Granny.DataTransferObject\Granny.DataTransferObject.csproj" />
+    <ProjectReference Include="..\Granny.Repository.Security\Granny.Repository.Security.csproj" />
   </ItemGroup>
 
 </Project>

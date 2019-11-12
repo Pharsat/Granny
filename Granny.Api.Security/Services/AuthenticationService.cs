@@ -14,24 +14,19 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Granny.Api.Security.Services
 {
-    public class UserService : IUserService
+    public class AuthenticationService : IAuthenticationService
     {
 
         private readonly AppSettings _appSettings;
 
-        private readonly ISecurityRepository _securityRepository;
+        private readonly IUserRepository _securityRepository;
 
-        public UserService(IOptions<AppSettings> appSettings, ISecurityRepository securityRepository)
+        public AuthenticationService(IOptions<AppSettings> appSettings, IUserRepository securityRepository)
         {
-            if (appSettings is null)
-            {
-                throw new ArgumentNullException(nameof(appSettings));
-            }
-
             _appSettings = appSettings.Value;
-
             _securityRepository = securityRepository;
         }
+
         public async Task<AuthenticatedUser> Authenticate(string email)
         {
             var user = await _securityRepository.GetUser(email).ConfigureAwait(false);

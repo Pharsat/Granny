@@ -3,7 +3,7 @@ using Granny.DataModel;
 
 namespace Granny.Api.Security.Services
 {
-    public interface IUserService
+    public interface IAuthenticationService
     {
         Task<AuthenticatedUser> Authenticate(string email);
     }

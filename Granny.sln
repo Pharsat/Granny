@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Util", "Granny.Util\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DataTransferObject", "Granny.DataTransferObject\Granny.DataTransferObject.csproj", "{4D6CBDF3-55D2-4716-9933-986C3F4D46F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DAO", "Granny.DAO\Granny.DAO.csproj", "{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DataAccessObject.Sql", "Granny.DAO\Granny.DataAccessObject.Sql.csproj", "{BEB092FC-0B9D-4CF0-89DE-97DDBBB0E7FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Services", "Granny.Services\Granny.Services.csproj", "{2CD82BCB-8C03-4605-B67B-719233EFD1E4}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Persistance", "Grann
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{E0241322-9F14-46E8-9B31-7F1ADC6125F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Granny.Test", "Granny.Test\Granny.Test.csproj", "{04CC3641-2FDC-4E82-8589-E7A525E26B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Test", "Granny.Test\Granny.Test.csproj", "{04CC3641-2FDC-4E82-8589-E7A525E26B9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

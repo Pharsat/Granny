@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Google.Apis.Auth;
-using Granny.Api.Security.Services;
-using Granny.DataTransferObject;
+using AutoMapper;
+using Granny.DataModel;
+using Granny.DataTransferObject.User;
+using Granny.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Granny.Api.Security.Controllers.V1
@@ -17,38 +14,35 @@ namespace Granny.Api.Security.Controllers.V1
     [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserServices _userService;
+        private IMapper _mapper;
 
-        public UsersController(IUserService userService)
+        public UsersController(
+            IUserServices userService,
+            IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
+        }
+        [AllowAnonymous]
+        [HttpPost()]
+        public async Task<IActionResult> Post(
+            [FromBody] UserCreateDto model)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            User user = _mapper.Map<User>(model);
+            return Ok(await _userService.CreateUser(user).ConfigureAwait(false));
         }
 
         [AllowAnonymous]
-        [HttpPost()]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticateDto model)
+        [HttpGet("{email}", Name = "GetByEmail")]
+        public async Task<IActionResult> GetByEmail(
+            [EmailAddress] string email)
         {
-            if (model is null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            try
-            {
-                var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
-                if (payload == null) return Unauthorized();
-
-                var user = await _userService.Authenticate(payload.Email).ConfigureAwait(false);
-
-                if (user == null)
-                    return BadRequest(new { message = "email is invalid" });
-
-                return Ok(user);
-            }
-            catch (InvalidJwtException ex)
-            {
-                return Unauthorized(new { message = ex.Message });
-            }
+            if (!ModelState.IsValid) return BadRequest();
+            User user = await _userService.GetUser(email).ConfigureAwait(false);
+            UserOutputDto userDto = _mapper.Map<UserOutputDto>(user);
+            return Ok(userDto);
         }
     }
 }

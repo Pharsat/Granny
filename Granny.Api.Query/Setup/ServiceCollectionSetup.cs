@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.EquivalencyExpression;
-using Granny.Api.Query.ConfigurationMapper;
+using Granny.Api.Query.Configuration;
 using Granny.DAO.EntitiesRepository;
 using Granny.DAO.EntitiesRepository.Interface;
 using Granny.DAO.UnitOfWork;

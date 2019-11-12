@@ -1,40 +1,32 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Text;
+using AutoMapper;
 using AutoMapper.EquivalencyExpression;
-using Granny.Api.Register.Configuration;
-using Granny.DAO.EntitiesRepository;
-using Granny.DAO.EntitiesRepository.Interface;
-using Granny.DAO.UnitOfWork;
-using Granny.DAO.UnitOfWork.Interface;
-using Granny.Services;
-using Granny.Services.Interfaces;
+using Granny.Api.Security.Configuration;
+using Granny.Repository.Security;
+using Granny.Repository.Security.Mongo;
 using Granny.Util.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Text;
 
-namespace Granny.Api.Register.Setup
+namespace Granny.Api.Securirty.Setup
 {
     public static class ServiceCollectionSetup
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<ILocationServices, LocationServices>()
-                .AddScoped<IPriceServices, PriceServices>()
-                .AddScoped<IProductServices, ProductServices>();
+                .AddScoped<Security.Services.IAuthenticationService, Security.Services.AuthenticationService>();
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
-                .AddScoped<IUnitOfWork, UnitOfWork>()
-                .AddScoped<ILocationRepository, LocationRepository>()
-                .AddScoped<IProductRepository, ProductRepository>()
-                .AddScoped<IPriceRepository, PriceRepository>();
+                .AddScoped<IUserRepository, UserRepository>();
         }
 
         public static IServiceCollection AddMapper(this IServiceCollection services)
@@ -79,6 +71,17 @@ namespace Granny.Api.Register.Setup
                     ValidateAudience = false
                 };
             });
+        }
+
+        public static IServiceCollection ConfigureMongoDbSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            if (configuration is null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+            return
+                 services.Configure<GrannySecurityDatabaseSettings>(configuration.GetSection(nameof(GrannySecurityDatabaseSettings)))
+                 .AddSingleton<IGrannySecurityDatabaseSettings>(sp => sp.GetRequiredService<IOptions<GrannySecurityDatabaseSettings>>().Value);
         }
     }
 }
