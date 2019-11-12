@@ -14,7 +14,7 @@ namespace Granny.Api.Security.Controllers.V1
     [Route("api/v1/[controller]")]
     public class AuthenticationController : ControllerBase
     {
-        private readonly IAuthenticationService _userService;
+        private IAuthenticationService _userService;
         private IMapper _mapper;
 
         public AuthenticationController(

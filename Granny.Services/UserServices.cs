@@ -14,6 +14,7 @@ namespace Granny.Services
         {
             _userRepository = userRepository;
         }
+
         public async Task<string> CreateUser(User user)
         {
             return await _userRepository.CreateUser(user);

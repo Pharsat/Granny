@@ -14,7 +14,7 @@ namespace Granny.Api.Security.Controllers.V1
     [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserServices _userService;
+        private IUserServices _userService;
         private IMapper _mapper;
 
         public UsersController(
@@ -24,7 +24,7 @@ namespace Granny.Api.Security.Controllers.V1
             _userService = userService;
             _mapper = mapper;
         }
-        [AllowAnonymous]
+
         [HttpPost()]
         public async Task<IActionResult> Post(
             [FromBody] UserCreateDto model)
@@ -34,7 +34,6 @@ namespace Granny.Api.Security.Controllers.V1
             return Ok(await _userService.CreateUser(user).ConfigureAwait(false));
         }
 
-        [AllowAnonymous]
         [HttpGet("{email}", Name = "GetByEmail")]
         public async Task<IActionResult> GetByEmail(
             [EmailAddress] string email)

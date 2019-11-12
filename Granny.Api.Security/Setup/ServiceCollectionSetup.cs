@@ -1,10 +1,11 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using AutoMapper;
 using AutoMapper.EquivalencyExpression;
 using Granny.Api.Security.Configuration;
 using Granny.Repository.Security;
 using Granny.Repository.Security.Mongo;
+using Granny.Services;
+using Granny.Services.Interfaces;
 using Granny.Util.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,13 +21,14 @@ namespace Granny.Api.Securirty.Setup
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<Security.Services.IAuthenticationService, Security.Services.AuthenticationService>();
+                .AddScoped<Security.Services.IAuthenticationService, Security.Services.AuthenticationService>()
+                .AddScoped<IUserServices, UserServices>();
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             return services
-                .AddScoped<IUserRepository, UserRepository>();
+                .AddScoped<IUserRepository, UserRepository>(); ;
         }
 
         public static IServiceCollection AddMapper(this IServiceCollection services)
@@ -42,11 +44,6 @@ namespace Granny.Api.Securirty.Setup
 
         public static AuthenticationBuilder ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
-            if (configuration is null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-
             // configure strongly typed settings objects
             var appSettingsSection = configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -75,10 +72,6 @@ namespace Granny.Api.Securirty.Setup
 
         public static IServiceCollection ConfigureMongoDbSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            if (configuration is null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
             return
                  services.Configure<GrannySecurityDatabaseSettings>(configuration.GetSection(nameof(GrannySecurityDatabaseSettings)))
                  .AddSingleton<IGrannySecurityDatabaseSettings>(sp => sp.GetRequiredService<IOptions<GrannySecurityDatabaseSettings>>().Value);
