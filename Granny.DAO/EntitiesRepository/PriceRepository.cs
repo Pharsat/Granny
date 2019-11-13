@@ -20,11 +20,6 @@ namespace Granny.DAO.EntitiesRepository
             return await ObjectSet.Where(p => p.ProductId == productId && p.LocationId == locationId).FirstOrDefaultAsync();
         }
 
-        //public async Task Create(Price price)
-        //{
-        //    await ObjectSet.AddAsync(price);
-        //}
-
         public async Task<Price> GetBestProductPrice(long productId)
         {
             return await ObjectSet.Where(s => s.ProductId.Equals(productId)).FirstOrDefaultAsync();

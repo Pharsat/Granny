@@ -25,8 +25,10 @@ namespace Granny.DAO.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().HasKey(c=>c.ProductId);
-            modelBuilder.Entity<Product>().Property(c => c.ProductId)
+            modelBuilder.Entity<Product>()
+                .HasKey(c=>c.ProductId);
+            modelBuilder.Entity<Product>()
+                .Property(c => c.ProductId)
                 .ValueGeneratedNever();
         }
     }

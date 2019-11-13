@@ -53,6 +53,9 @@ namespace Granny.DAO.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
@@ -62,7 +65,7 @@ namespace Granny.DAO.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Prices");
                 });
@@ -82,10 +85,8 @@ namespace Granny.DAO.Migrations
 
             modelBuilder.Entity("Granny.DataModel.User", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -114,9 +115,7 @@ namespace Granny.DAO.Migrations
 
                     b.HasOne("Granny.DataModel.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }
