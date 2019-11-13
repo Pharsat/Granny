@@ -12,7 +12,7 @@ namespace Granny.Api.Security.Controllers.V1
 {
     [Authorize]
     [ApiController]
-    [Route("api/v1/[controller]")]  
+    [Route("api/v1/[controller]")]
     public class UsersController : ControllerBase
     {
         private IUserServices _userService;
@@ -31,17 +31,24 @@ namespace Granny.Api.Security.Controllers.V1
         public async Task<IActionResult> Post(
             [FromBody] UserCreateDto model)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            try
+            {
+                if (!ModelState.IsValid) return BadRequest();
 
-            var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
+                var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
 
-            if (payload == null) return Unauthorized();
+                if (payload == null) return Unauthorized();
 
-            if (await _userService.GetUser(payload.Email).ConfigureAwait(false) != null) { return Conflict(new { message = "User already exists" }); }
+                if (await _userService.GetUser(payload.Email).ConfigureAwait(false) != null) { return Conflict(new { message = "User already exists" }); }
 
-            User user = _mapper.Map<User>(payload);
+                User user = _mapper.Map<User>(payload);
 
-            return Ok(await _userService.CreateUser(user).ConfigureAwait(false));
+                return Ok(await _userService.CreateUser(user).ConfigureAwait(false));
+            }
+            catch (InvalidJwtException ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
         }
 
         [HttpGet("{email}", Name = "GetByEmail")]
