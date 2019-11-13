@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
+using Google.Apis.Auth;
 using Granny.DataModel;
 using Granny.DataTransferObject.User;
 using Granny.Services.Interfaces;
@@ -25,12 +26,21 @@ namespace Granny.Api.Security.Controllers.V1
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpPost()]
         public async Task<IActionResult> Post(
             [FromBody] UserCreateDto model)
         {
             if (!ModelState.IsValid) return BadRequest();
-            User user = _mapper.Map<User>(model);
+
+            var payload = await GoogleJsonWebSignature.ValidateAsync(model.GoogleToken).ConfigureAwait(false);
+
+            if (payload == null) return Unauthorized();
+
+            if (await _userService.GetUser(payload.Email).ConfigureAwait(false) != null) { return Conflict(new { message = "User already exists" }); }
+
+            User user = _mapper.Map<User>(payload);
+
             return Ok(await _userService.CreateUser(user).ConfigureAwait(false));
         }
 

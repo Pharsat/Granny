@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using AutoMapper;
 using Granny.DataModel;
 using Granny.DataTransferObject.Price;
 using Granny.DataTransferObject.User;
+using static Google.Apis.Auth.GoogleJsonWebSignature;
 
 namespace Granny.Api.Security.Configuration
 {
@@ -18,7 +20,8 @@ namespace Granny.Api.Security.Configuration
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.RegisterDate, opt => opt.MapFrom(src => DateTime.Now));
 
-            CreateMap<UserCreateDto, User>();
+            CreateMap<Payload, User>()
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.ToLower(CultureInfo.CurrentCulture)));
 
             CreateMap<User, UserOutputDto>();
         }
