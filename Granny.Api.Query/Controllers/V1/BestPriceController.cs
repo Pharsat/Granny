@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Granny.Api.Query.Controllers.V1
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class BestPriceController : ControllerBase
     {
@@ -25,18 +25,18 @@ namespace Granny.Api.Query.Controllers.V1
             _priceServices = priceServices;
         }
 
-        // GET: api/Product/5
-        [HttpGet("{pluCode}", Name = "GetByCode")]
+        // GET: api/BestPrice/GetByCode/5
+        [HttpGet("GetByCode/{pluCode}", Name = "GetByCode")]
         public async Task<IActionResult> GetByCode(
             long pluCode)
         {
             Price price = await _priceServices.GetBestProductPrice(pluCode).ConfigureAwait(false);
-            if (price == null) return NotFound();
+            if (price == null) return Ok();
             return Ok(price);
         }
 
-        // GET: api/Product/Exito las vegas
-        [HttpGet("{location}", Name = "GetByLocation")]
+        // GET: api/BestPrice/GetByLocation/Exito las vegas
+        [HttpGet("GetByLocation/{location}", Name = "GetByLocation")]
         public async Task<IActionResult> GetByLocation(
             string location)
         {
@@ -44,11 +44,11 @@ namespace Granny.Api.Query.Controllers.V1
             return Ok(await _priceServices.GetPricesByLocation(location).ConfigureAwait(false));
         }
 
-        //GET: api/Product/5/2000
-        [HttpGet("{pluCode}/{price}", Name = "GetByCodeAfterPrice")]
+        //GET: api/ProduBestPrice/5/2000
+        [HttpGet("GetByCodeLowerPrices/{pluCode}/{price}", Name = "GetByCodeAfterPrice")]
         public async Task<IActionResult> GetByCodeAfterPrice(
-                long pluCode,
-                [MinValue(typeof(decimal), "0")] decimal price)
+                [FromQuery] long pluCode,
+                [FromQuery, MinValue(typeof(decimal), "0")] decimal price)
         {
             if (!ModelState.IsValid) return BadRequest();
             return Ok(await _priceServices.GetNextProductPrices(pluCode, price).ConfigureAwait(false));
