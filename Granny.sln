@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.DataAccessObject.Sql
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Services", "Granny.Services\Granny.Services.csproj", "{2CD82BCB-8C03-4605-B67B-719233EFD1E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Persistance", "Granny.Persistance\Granny.Persistance.csproj", "{5EA20250-6799-4F43-B218-81DE0C03699C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Repository.Security", "Granny.Repository.Security\Granny.Repository.Security.csproj", "{E0241322-9F14-46E8-9B31-7F1ADC6125F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Granny.Test", "Granny.Test\Granny.Test.csproj", "{04CC3641-2FDC-4E82-8589-E7A525E26B9E}"
@@ -63,10 +61,6 @@ Global
 		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CD82BCB-8C03-4605-B67B-719233EFD1E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EA20250-6799-4F43-B218-81DE0C03699C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EA20250-6799-4F43-B218-81DE0C03699C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EA20250-6799-4F43-B218-81DE0C03699C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EA20250-6799-4F43-B218-81DE0C03699C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0241322-9F14-46E8-9B31-7F1ADC6125F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
