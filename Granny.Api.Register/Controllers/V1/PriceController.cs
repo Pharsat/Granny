@@ -61,7 +61,7 @@ namespace Granny.Api.Register.Controllers.V1
                 Price price = _mapper.Map<Price>(priceDto);
                 price.LocationId = location.LocationId;
                 price.ProductId = product.ProductId;
-                price.UserId = 1;
+                price.UserId = "";
 
                 await _priceServices.Create(price).ConfigureAwait(false);
             }

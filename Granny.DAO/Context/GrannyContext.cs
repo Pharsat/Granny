@@ -13,8 +13,6 @@ namespace Granny.DAO.Context
 
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<User> Users { get; set; }
-
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
