@@ -50,20 +50,20 @@ namespace Granny.Api.Register.Controllers.V1
                 await _productServices.Create(product).ConfigureAwait(false);
             }
 
+            Price price = null;
+
             if (await _priceServices.CheckIfExists(product.ProductId, location.LocationId).ConfigureAwait(false) == null)
             {
-                var authenticateInfo = User;
-                //string accessToken = authenticateInfo.Properties.Items[".Token.access_token"];
-
-                Price price = _mapper.Map<Price>(priceDto);
+                price = _mapper.Map<Price>(priceDto);
                 price.LocationId = location.LocationId;
                 price.ProductId = product.ProductId;
-                price.UserId = "";
-
-                await _priceServices.Create(price).ConfigureAwait(false);
+                price.UserId = User.Identity.Name;
+                price.PriceId = await _priceServices.Create(price).ConfigureAwait(false);
             }
 
-            return Ok();
+            if (price != null) return Ok(price);
+
+            return Conflict(new { message = "Price already exists" });
         }
 
     }

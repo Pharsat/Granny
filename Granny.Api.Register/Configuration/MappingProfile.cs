@@ -15,6 +15,9 @@ namespace Granny.Api.Register.Configuration
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.PluCode));
             CreateMap<PriceCreateDto, Price>()
                 .ForMember(dest => dest.Value, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.Location, opt => opt.Ignore())
+                .ForMember(dest => dest.Product, opt => opt.Ignore())
+                .ForMember(dest => dest.User, opt => opt.Ignore())
                 .ForMember(dest => dest.RegisterDate, opt => opt.MapFrom(src => DateTime.Now));
         }
     }
