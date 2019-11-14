@@ -22,24 +22,29 @@ namespace Granny.DAO.EntitiesRepository
 
         public async Task<Price> GetBestProductPrice(long productId)
         {
-            return await ObjectSet.Where(s => s.ProductId.Equals(productId)).FirstOrDefaultAsync();
+            return await ObjectSet
+                .Where(s => s.ProductId.Equals(productId))
+                .Include("Location")
+                .Include("Product")
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Price>> GetNextProductPrices(long productId, decimal value)
         {
-            return await (from price in ObjectSet
-                          where price.ProductId.Equals(productId)
-                          && price.Value > value
-                          orderby price.Value 
-                          select price).ToListAsync();
+            return await ObjectSet
+                .Where(s => s.ProductId.Equals(productId) && s.Value > value)
+                .Include("Location")
+                .Include("Product")
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Price>> GetPricesByLocation(string locationDescription)
         {
-            return await (from price in ObjectSet
-                          where price.Location.Name.Equals(locationDescription)
-                          orderby price.Value 
-                          select price).ToListAsync();
+            return await ObjectSet
+                .Include("Location")
+                .Include("Product")
+                .Where(s => s.Location.Name.Equals(locationDescription))
+                .ToListAsync();
         }
-}
+    }
 }

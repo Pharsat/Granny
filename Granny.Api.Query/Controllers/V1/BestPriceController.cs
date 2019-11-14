@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Granny.DataModel;
+using Granny.DataTransferObject.Price;
 using Granny.Services.Interfaces;
 using Granny.Util.Validators;
 using Microsoft.AspNetCore.Authorization;
@@ -18,11 +20,14 @@ namespace Granny.Api.Query.Controllers.V1
     {
 
         private readonly IPriceServices _priceServices;
+        private readonly IMapper _mapper;
 
         public BestPriceController(
-            IPriceServices priceServices)
+            IPriceServices priceServices,
+            IMapper mapper)
         {
             _priceServices = priceServices;
+            _mapper = mapper;
         }
 
         // GET: api/BestPrice/GetByCode/5
@@ -32,7 +37,10 @@ namespace Granny.Api.Query.Controllers.V1
         {
             Price price = await _priceServices.GetBestProductPrice(pluCode).ConfigureAwait(false);
             if (price == null) return Ok();
-            return Ok(price);
+
+            var result = _mapper.Map<PriceOutputDto>(price);
+
+            return Ok(result);
         }
 
         // GET: api/BestPrice/GetByLocation/Exito las vegas
@@ -41,17 +49,29 @@ namespace Granny.Api.Query.Controllers.V1
             string location)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return Ok(await _priceServices.GetPricesByLocation(location).ConfigureAwait(false));
+
+            IEnumerable<Price> prices = await _priceServices.GetPricesByLocation(location).ConfigureAwait(false);
+
+            IEnumerable<PriceOutputDto> result = from price in prices
+                                                 select _mapper.Map<PriceOutputDto>(price);
+
+            return Ok(result);
         }
 
         //GET: api/ProduBestPrice/5/2000
-        [HttpGet("GetByCodeLowerPrices/{pluCode}/{price}", Name = "GetByCodeAfterPrice")]
+        [HttpGet("GetByCodeLowerPrices/{pluCode}/{value}", Name = "GetByCodeAfterPrice")]
         public async Task<IActionResult> GetByCodeAfterPrice(
                 [FromQuery] long pluCode,
-                [FromQuery, MinValue(typeof(decimal), "0")] decimal price)
+                [FromQuery, MinValue(typeof(decimal), "0")] decimal value)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return Ok(await _priceServices.GetNextProductPrices(pluCode, price).ConfigureAwait(false));
+
+            IEnumerable<Price> prices = await _priceServices.GetNextProductPrices(pluCode, value).ConfigureAwait(false);
+
+            IEnumerable<PriceOutputDto> result = from price in prices
+                                                 select _mapper.Map<PriceOutputDto>(price);
+
+            return Ok(result);
         }
     }
 }
