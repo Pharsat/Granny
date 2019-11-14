@@ -40,7 +40,8 @@ namespace Granny.Api.Security.Controllers.V1
                 if (user == null) return BadRequest(new { message = "User unidentified" });
 
                 UserOutputDto userDto = _mapper.Map<UserOutputDto>(user);
-                return Ok(user);
+
+                return Ok(userDto);
             }
             catch (InvalidJwtException ex)
             {

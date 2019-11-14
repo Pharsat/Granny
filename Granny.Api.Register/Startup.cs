@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace Granny.Api.Register
 {
@@ -22,7 +21,7 @@ namespace Granny.Api.Register
         {
             services.AddControllers();
 
-            services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "Granny Register Products API", Version = "v1" }));
+            services.AddSwaggerGen();
 
             services.AddCors();
 
@@ -64,13 +63,6 @@ namespace Granny.Api.Register
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
             // global cors policy
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -79,6 +71,12 @@ namespace Granny.Api.Register
 
             app.UseAuthentication();
 
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

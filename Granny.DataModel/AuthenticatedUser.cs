@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Granny.DataModel
 {
-    public class AuthenticatedUser: User
+    public class AuthenticatedUser : User
     {
         public string Token { get; set; }
     }

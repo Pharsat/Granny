@@ -12,14 +12,14 @@ namespace Granny.Api.Register.Controllers.V1
     [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class PriceController : ControllerBase
     {
         private readonly IProductServices _productServices;
         private readonly ILocationServices _locationServices;
         private readonly IPriceServices _priceServices;
         private IMapper _mapper;
 
-        public ProductController(ILocationServices locationServices, IProductServices productServices, IPriceServices priceServices, IMapper mapper)
+        public PriceController(ILocationServices locationServices, IProductServices productServices, IPriceServices priceServices, IMapper mapper)
         {
             _locationServices = locationServices;
             _productServices = productServices;
@@ -31,11 +31,6 @@ namespace Granny.Api.Register.Controllers.V1
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PriceCreateDto priceDto)
         {
-            if (priceDto is null)
-            {
-                throw new ArgumentNullException(nameof(priceDto));
-            }
-
             if (!ModelState.IsValid)
                 return BadRequest();
 
@@ -57,7 +52,9 @@ namespace Granny.Api.Register.Controllers.V1
 
             if (await _priceServices.CheckIfExists(product.ProductId, location.LocationId).ConfigureAwait(false) == null)
             {
-                
+                var authenticateInfo = User;
+                //string accessToken = authenticateInfo.Properties.Items[".Token.access_token"];
+
                 Price price = _mapper.Map<Price>(priceDto);
                 price.LocationId = location.LocationId;
                 price.ProductId = product.ProductId;

@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Granny.Api.Securirty.Setup;
 using Granny.Api.Security.Services;
@@ -30,7 +31,7 @@ namespace Granny.Api.Security
         {
             services.AddControllers();
 
-            services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "Granny Register Products API", Version = "v1" }));
+            services.AddSwaggerGen();
 
             services.AddCors();
 
@@ -75,13 +76,6 @@ namespace Granny.Api.Security
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
             // global cors policy
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -90,6 +84,12 @@ namespace Granny.Api.Security
 
             app.UseAuthentication();
 
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

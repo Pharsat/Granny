@@ -39,7 +39,8 @@ namespace Granny.Api.Security.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.UserId)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -49,7 +50,7 @@ namespace Granny.Api.Security.Services
             return new AuthenticatedUser
             {
                 Email = user.Email,
-                Name = user.Name,
+                Name = user.Name,   
                 Token = tokenHandler.WriteToken(token),
                 UserId = user.UserId
             };

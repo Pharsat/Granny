@@ -23,6 +23,7 @@ namespace Granny.Api.Security.Configuration
             CreateMap<Payload, User>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.ToLower(CultureInfo.CurrentCulture)));
 
+            CreateMap<AuthenticatedUser, UserOutputDto>();
             CreateMap<User, UserOutputDto>();
         }
     }
