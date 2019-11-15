@@ -56,5 +56,10 @@ namespace Granny.Services
             Price price = await _priceRepository.CheckIfExists(productId, locationId);
             return price?.PriceId;
         }
+
+        public async Task<IEnumerable<Price>> GetByName(string nameProduct)
+        {
+            return await _priceRepository.GetByName(nameProduct);
+        }
     }
 }

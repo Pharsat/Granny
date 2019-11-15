@@ -46,5 +46,10 @@ namespace Granny.DAO.EntitiesRepository
                 .Where(s => s.Location.Name.Equals(locationDescription))
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Price>> GetByName(string nameProduct)
+        {
+            return await ObjectSet.Include("Location").Include("Product").Where(p => p.Product.Name.Contains(nameProduct)).ToListAsync();
+        }
     }
 }

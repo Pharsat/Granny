@@ -14,5 +14,7 @@ namespace Granny.DAO.EntitiesRepository.Interface
         Task<IEnumerable<Price>> GetNextProductPrices(long productId, decimal value);
 
         Task<IEnumerable<Price>> GetPricesByLocation(string locationDescription);
+
+        Task<IEnumerable<Price>> GetByName(string nameProduct);
     }
 }

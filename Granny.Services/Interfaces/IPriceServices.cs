@@ -15,5 +15,7 @@ namespace Granny.Services.Interfaces
         Task<IEnumerable<Price>> GetPricesByLocation(string location);
 
         Task<int?> CheckIfExists(long productId, int locationId);
+
+        Task<IEnumerable<Price>> GetByName(string nameProduct);
     }
 }
