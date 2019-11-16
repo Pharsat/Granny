@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Granny.Api.Query.Controllers.V1
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
