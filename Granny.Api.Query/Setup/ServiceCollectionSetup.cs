@@ -24,7 +24,7 @@ namespace Granny.Api.Query.Setup
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             return services
-                .AddScoped<ILocationServices, LocationServices>()
+                .AddScoped<ILocationServices, LocationService>()
                 .AddScoped<IPriceServices, PriceServices>()
                 .AddScoped<IProductServices, ProductServices>();
         }

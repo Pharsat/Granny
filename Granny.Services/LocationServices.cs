@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Granny.Services
 {
-    public class LocationServices : ILocationServices
+    public class LocationService : ILocationServices
     {
         private ILocationRepository _locationRepository;
         private IUnitOfWork _unitOfWork;
 
-        public LocationServices(
+        public LocationService(
             IUnitOfWork unitOfWork,
             ILocationRepository locationRepository)
         {

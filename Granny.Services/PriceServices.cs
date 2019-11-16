@@ -10,20 +10,14 @@ namespace Granny.Services
     public class PriceServices : IPriceServices
     {
         private IUnitOfWork _unitOfWork;
-        private ILocationServices _locationServices;
-        private IProductServices _productServices;
         private IPriceRepository _priceRepository;
 
         public PriceServices(
             IUnitOfWork unitOfWork,
-            IPriceRepository priceRepository,
-            ILocationServices locationServices,
-            IProductServices productServices)
+            IPriceRepository priceRepository)
         {
             this._unitOfWork = unitOfWork;
             this._priceRepository = priceRepository;
-            this._locationServices = locationServices;
-            this._productServices = productServices;
         }
 
         public async Task<int> Create(Price price)
