@@ -29,6 +29,7 @@ namespace Granny.Api.Query.Controllers.V1
         
         //[HttpGet("{nameProduct}", Name = "Get")]
         [HttpGet]
+        [HttpGet("Get/{nameProduct}", Name = "Get")]
         public async Task<IActionResult> Get(
             [FromQuery] string nameProduct)
         {
