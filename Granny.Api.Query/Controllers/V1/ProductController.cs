@@ -27,11 +27,9 @@ namespace Granny.Api.Query.Controllers.V1
             _mapper = mapper;
         }
         
-        //[HttpGet("{nameProduct}", Name = "Get")]
-        [HttpGet]
         [HttpGet("Get/{nameProduct}", Name = "Get")]
         public async Task<IActionResult> Get(
-            [FromQuery] string nameProduct)
+            string nameProduct)
         {
             if (!ModelState.IsValid) return BadRequest();
 
