@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Granny.Util.Exceptions;
 
 namespace Granny.Util.Search_GS1
 {
-    class SearchProdcutName
+    public static class SearchProductName
     {
-        public static async System.Threading.Tasks.Task<ValidationResult> SearchProductAsync(string gtin)
+        public static async Task<string> SearchProductAsync(string gtin)
         {
             string nameproduct;
             var formContent = new FormUrlEncodedContent(new[]
@@ -14,7 +15,7 @@ namespace Granny.Util.Search_GS1
                  new KeyValuePair<string, string>("itemGTIN", gtin)
                });
 
-            System.Net.Http.HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient();
             var response = await client.PostAsync("http://gepir.gs1co.org/GepirV40/es/Codes/SearchItemGTIN".ToString(), formContent).ConfigureAwait(false);
 
             if (response.IsSuccessStatusCode)
@@ -28,21 +29,17 @@ namespace Granny.Util.Search_GS1
                 {
                     nameproduct = htmlDoc.DocumentNode.SelectSingleNode("//td[5]").InnerText.ToString().Substring(2);
                 }
-                catch (Exception e)
+                catch
                 {
-                    nameproduct = "not found";
+                    throw new ProductNotFoundException("Product not found");
                 }
-
-
             }
             else
             {
-                nameproduct = "internal server error";
+                throw new ExternalRequestException("Error de comunicación con el servidor GS1");
             }
 
-
-
-            return new ValidationResult(nameproduct);
+            return nameproduct;
         }
 
     }

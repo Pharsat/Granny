@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Granny.DataModel;
 using Granny.DataTransferObject.Price;
 using Granny.Services.Interfaces;
+using Granny.Util.Exceptions;
+using Granny.Util.Search_GS1;
 using Granny.Util.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +29,7 @@ namespace Granny.Api.Query.Controllers.V1
             _priceServices = priceServices;
             _mapper = mapper;
         }
-        
+
         [HttpGet("Get/{nameProduct}", Name = "Get")]
         public async Task<IActionResult> Get(
             string nameProduct)
@@ -39,6 +42,24 @@ namespace Granny.Api.Query.Controllers.V1
                                                  select _mapper.Map<PriceOutputDto>(price);
 
             return Ok(result);
+        }
+
+        [HttpGet("Product/{productId}/GetByName", Name = "GetByName")]
+        public async Task<IActionResult> GetByName(
+           long productId)
+        {
+            try
+            {
+                return Ok(await SearchProductName.SearchProductAsync(productId.ToString()).ConfigureAwait(false));
+            }
+            catch (ExternalRequestException)
+            {
+                return Ok();
+            }
+            catch (ProductNotFoundException)
+            {
+                return Ok();
+            }
         }
     }
 }
